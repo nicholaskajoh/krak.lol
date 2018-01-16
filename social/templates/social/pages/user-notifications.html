@@ -1,0 +1,14 @@
+{% if notifs_count > 0 %}
+<ul id="notifications" class="media-list">
+	{% include 'social/partials/notifications.html' %}
+</ul>
+{% else %}
+	<p class="text-center">No notifications yet!</p>
+{% endif %}
+
+{% if notifs_count > 10 %}
+<p class="text-center">
+	<a id="loadNotifications" class="btn btn-default btn-round" href="javascript:void(0);" data-page="2">Load More</a>
+	<i id="loadNotificationsSpinner" class="fa fa-spinner fa-spin fa-2x" style="display: none;"></i>
+</p>
+{% endif %}

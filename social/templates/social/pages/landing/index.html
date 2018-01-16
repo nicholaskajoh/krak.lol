@@ -1,0 +1,68 @@
+{% extends "social/base.html" %}
+
+{% block content %}
+	<!-- Full Width Image Header -->
+    <header class="header-image" style="margin-top: -15px;">
+        <div class="headline">
+            <div class="container">
+                <h1>Krak.lol's Lit!</h1>
+                <h2>It's the social community for comedy...</h2>
+                <div>
+                    <a class="btn btn-success btn-lg" href="#" data-toggle="modal" data-target="#signUp">Sign Up</a>
+                    <a class="btn btn-primary btn-lg" href="#" data-toggle="modal" data-target="#signIn">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <div class="container landing">
+
+        <hr class="featurette-divider">
+
+        <!-- First Featurette -->
+        <div class="featurette">
+            <img class="featurette-image img-circle img-responsive pull-right" src="{% static 'social/img/site/featurette-1.jpg' %}?v=2">
+            <h3 class="featurette-heading">You're a Comedian
+                <span class="text-muted">Believe it or not!</span>
+            </h3>
+            <p class="lead">We're all comedians - at least to someone. Krak.lol is a social community that lets you enjoy as well as share comedy with family, friends or everyone in creative and intuitive ways!</p>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <!-- Second Featurette -->
+        <div class="featurette">
+            <img class="featurette-image img-circle img-responsive pull-left" src="{% static 'social/img/site/featurette-2.jpg' %}?v=2">
+            <h3 class="featurette-heading">It's all about contribution
+                <span class="text-muted">It's all about sharing.</span>
+            </h3>
+            <p class="lead">You're a comedian. Everyone on Krak.lol is. There's no producer and consumer. Everyone contributes, everyone shares.</p>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <!-- Third Featurette -->
+        <div class="featurette">
+            <img class="featurette-image img-circle img-responsive pull-right" src="{% static 'social/img/site/featurette-3.jpg' %}?v=2">
+            <h3 class="featurette-heading">Krak.lol is community
+                <span class="text-muted">Never laugh alone.</span>
+            </h3>
+            <p class="lead">Krak.lol is not some isolated playground you run to behind the backs of the other kids. It's one fun community of family and friends who make each other smile every now and then. Never laugh alone...</p>
+        </div>
+
+        <hr class="featurette-divider">
+    </div>
+
+    <!-- Call to action -->
+    <div class="call-to-action">
+        <div class="container">
+            <h1>It's just a stone's throw away</h1>
+            <h4>Sign Up for an account and start sharing pure fun! Sign In if you already have one...</h4>
+            <div class="sign">
+            	<a class="btn btn-success btn-lg" href="#" data-toggle="modal" data-target="#signUp">Sign Up</a>
+            	<a class="btn btn-primary btn-lg" href="#" data-toggle="modal" data-target="#signIn">Sign In</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

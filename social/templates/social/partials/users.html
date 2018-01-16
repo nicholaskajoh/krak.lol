@@ -1,0 +1,35 @@
+{% load humanize %}
+{% load krak %}
+
+{% for u in users %}
+<li class="media">
+	<div class="media-left">
+		{% if u.profile.profile_photo %}
+			<img class="media-object img-circle thumb-64" src="{{ MEDIA_URL }}{{ u.profile.profile_photo }}">
+		{% else %}
+			<img class="media-object img-circle" src="https://api.adorable.io/avatars/64/{{ u.username }}.png">
+		{% endif %}
+	</div>
+	<div class="media-body">
+		<h4 class="media-heading">
+			<a href="{{ u.profile.url }}">
+				{{ u.profile.full_name }} <small><strong>@{{ u.username }}</strong></small>
+			</a>
+		</h4>
+
+		<p>{{ u.profile.bio|striptags|linebreaksbr }}</p>
+
+		{% if u != user %}
+        <div class="follow-wrapper pull-right">
+        	<button class="btn {% if not u|user_followed:user %}btn-primary{% else %}btn-success{% endif %} btn-round follow-button" data-krak-user-id="{{ u.id }}" data-action="{% if not u|user_followed:user %}follow{% else %}unfollow{% endif %}">{% if not u|user_followed:user %}Follow{% else %}Unfollow{% endif %}</button>
+        </div>
+        {% endif %}
+
+		<div class="media-details text-muted">
+			<span>posts <strong>{{ u|get_user_posts_count:user }}</strong></span>
+			<span>following <strong>{{ u.profile.following.count }}</strong></span>
+			<span>followers <strong>{{ u.profile.followers.count }}</strong></span>
+		</div>
+	</div><hr>
+</li>
+{% endfor %}

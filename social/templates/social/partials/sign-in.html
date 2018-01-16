@@ -1,0 +1,48 @@
+<div class="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="signInModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- form -->
+            <form id="signInForm" method="post" action="/auth/">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="signInModalLabel">Sign In <small>Intrabit in Paradisum de Comoedia...</small></h4>
+                </div>
+
+                <div class="modal-body">
+					<div id="signInError" class="text-danger"></div>
+
+					<!-- meta -->
+					{% csrf_token %}
+
+					<input type="hidden" name="redirect_url" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}/home{% endif %}">
+
+					<input type="hidden" name="action" value="login">
+					<!-- #meta -->
+
+					<!-- username -->
+					<div class="form-group">
+						<input id="username" class="form-control" type="text" name="username" placeholder="Username or Email" value="{% if login_data.username %}{{ login_data.username }}{% endif %}">
+					</div>
+					<!-- #username -->
+
+					<!-- password -->
+					<div class="form-group">
+						<input id="password" class="form-control" type="password" name="password" placeholder="Password" value="">
+					</div>
+					<!-- #password -->
+
+					<!-- other -->
+					<div class="text-right">
+						<a href="/password-reset">Lost password?</a>
+					</div>
+					<!-- #other -->
+                </div>
+                <div class="modal-footer">
+                    <button id="signInButton" class="btn btn-primary" type="submit">Login <i id="signInSpinner" class="fa fa-spinner fa-spin" style="display: none;"></i></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+            <!-- #form -->
+        </div>
+    </div>
+</div>

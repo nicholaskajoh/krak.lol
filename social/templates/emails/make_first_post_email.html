@@ -1,0 +1,45 @@
+{% extends "emails/base.html" %}
+
+{% block content %}
+<table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 600px;">
+
+    <!-- Hero Image, Flush : BEGIN -->
+    <tr>
+        <td bgcolor="#ffffff">
+            <img src="http://krak.lol/static/social/img/email/krak-email-make-first-post.jpg" aria-hidden="true" width="600" height="" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;" class="g-img">
+        </td>
+    </tr>
+    <!-- Hero Image, Flush : END -->
+
+    <!-- 1 Column Text + Button : BEGIN -->
+    <tr>
+        <td bgcolor="#ffffff">
+            <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                    <td style="padding: 40px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                        <p>Hi @{{ user.username }},
+                        <br>
+                        Ever thought of something funny? Share it on Krak.lol. Now. Make your first post!</p>
+                        
+                        <div style="text-align: right;">- Krak.lol Team</div>
+                        <br><br>
+                        <!-- Button : BEGIN -->
+                        <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto;">
+                            <tr>
+                                <td style="border-radius: 3px; background: teal; text-align: center;" class="button-td">
+                                    <a href="http://krak.lol/post" style="background: teal; border: 15px solid teal; font-family: sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
+                                        <span style="color:#ffffff;" class="button-link">&nbsp;&nbsp;&nbsp;&nbsp;Make A Post&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- Button : END -->
+                    </td>
+                    </tr>
+            </table>
+        </td>
+    </tr>
+    <!-- 1 Column Text + Button : END -->
+
+</table>
+{% endblock %}

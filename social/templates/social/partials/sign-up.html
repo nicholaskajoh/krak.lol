@@ -1,0 +1,54 @@
+<div class="modal fade" id="signUp" tabindex="-1" role="dialog" aria-labelledby="signUpModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- form -->
+            <form id="signUpForm" method="post" action="/auth/" autocomplete="off">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="signUpModalLabel">Sign Up <small>Create a new account. It takes only 5 seconds!</small></h4>
+                </div>
+
+                <div class="modal-body">
+                	<div id="sfOtherErrors" class="text-danger"></div>
+
+                	<!-- meta -->
+					{% csrf_token %}
+
+					<input type="hidden" name="action" value="register">
+					<!-- #meta -->
+
+					<!-- username -->
+					<div class="form-group">
+						<div id="sfUsernameErrors" class="text-danger"></div>
+
+						<input id="username" class="form-control" type="text" name="username" placeholder="Username" value="{% if form.username.value %}{{ form.username.value }}{% endif %}">
+					</div>
+					<!-- #username -->
+
+					<!-- email -->
+					<div class="form-group">
+						<div id="sfEmailErrors" class="text-danger"></div>
+
+						<input id="email" class="form-control" type="email" name="email" placeholder="Email" value="{% if form.email.value %}{{ form.email.value }}{% endif %}">
+					</div>
+					<!-- #email -->
+
+					<!-- password -->
+					<div class="form-group">
+						<div id="sfPasswordErrors" class="text-danger"></div>
+
+						<input id="password" class="form-control" type="password" name="password" placeholder="Password" value="{% if form.password.value %}{{ form.password.value }}{% endif %}">
+					</div>
+					<!-- #password -->
+
+					<div>By signing up, you agree to our <a href="/terms">Terms</a> and <a href="/policy">Policy</a>.</div>
+                </div>
+                <div class="modal-footer">
+                    <button id="signUpButton" class="btn btn-primary" type="submit">Sign Up <i id="signUpSpinner" class="fa fa-spinner fa-spin" style="display: none;"></i></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+            <!-- #form -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+{% extends "social/base.html" %}
+
+{% load humanize %}
+
+{% block content %} 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 page">
+                <h3>People</h3><hr style="margin-top: 0;">
+
+                <ul id="users" class="media-list">
+                    {% include 'social/partials/users.html' %}
+                </ul>
+
+                {% if users_count > 15 %}
+                <p class="text-center">
+                    <a id="loadUsers" class="btn btn-default btn-round" href="javascript:void(0);" data-page="2">Load More</a>
+                    <i id="usersSpinner" class="fa fa-spinner fa-spin fa-2x" style="display: none;"></i>
+                </p>
+                {% endif %}
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>   
+{% endblock %}

@@ -1,0 +1,37 @@
+{% load humanize %}
+{% load krak %}
+
+<li id="comment{{ comment.id }}" class="media">
+    <div class="media-left">
+        {% if comment.author.profile.profile_photo %}
+            <img class="media-object img-circle thumb-32" src="{{ comment.author.profile.profile_photo.url }}">
+        {% else %}
+            <img class="media-object img-circle" src="https://api.adorable.io/avatars/32/{{ comment.author }}.png">
+        {% endif %}
+    </div>
+    <div class="media-body">
+        <div class="linkify">{{ comment.content }}</div>
+
+        <div class="media-details text-muted">
+            <!-- details -->
+            <span><i class="fa fa-user"></i> <a href="{{ comment.author.profile.url }}">@{{ comment.author }}</a></span>
+            <span><i class="fa fa-clock-o"></i> {{ comment.created_at|naturaltime }}</span>
+            <span class="like-wrapper">
+                <a class="like-button" href="javascript:void(0);" data-action="{% if not comment|comment_liked:current_user %}like{% else %}unlike{% endif %}" data-item-id="{{ comment.id }}" data-item-type="comment">
+                    {% if not comment|comment_liked:current_user %}
+                        <i class="fa fa-heart like"></i> Like
+                    {% else %}
+                        <i class="fa fa-heart liked"></i> Liked
+                    {% endif %}
+                </a>, <span id="commentLikesCount{{ comment.id }}">{{ comment.get_likes.count|intcomma }}</span>
+            </span>
+
+            {% if comment.author == current_user and show_comment_actions %}
+            <!-- actions -->
+            <div class="pull-right">
+                [<a class="delete-button text-danger" href="javascript:void(0);" data-item-type="comment" data-item-id="{{ comment.id }}" data-redirect-url="{{ post.url }}">Delete</a>]
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</li>

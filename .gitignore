@@ -1,0 +1,9 @@
+db.sqlite3
+*.pyc
+
+media/*
+!media/.gitkeep
+
+krak.log
+
+.vscode/

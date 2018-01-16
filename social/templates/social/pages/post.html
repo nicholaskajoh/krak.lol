@@ -1,0 +1,118 @@
+{% extends "social/base.html" %}
+
+{% load humanize %}
+
+{% block content %}
+    <div class="container">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 page">
+            <div class="row">
+                <!-- post -->
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h4>{{ post.title }}</h4>
+
+                        {% if post.featured_image %}
+                            <a href="{{ MEDIA_URL }}{{ post.featured_image }}" data-lightbox="post-featured-image" data-title="{{ post.title }}">
+                                <img class="img-responsive" src="{{ MEDIA_URL }}{{ post.featured_image }}">
+                            </a><br>
+                        {% endif %}
+
+                        <p id="postContent" class="post-content linkify panel-text">{{ post.content|striptags|linebreaksbr }}</p>
+                    </div>
+                    <div class="panel-footer details">
+                        <span>
+                            <img class="img-circle thumb-16" src="{% if post.author.profile.profile_photo %}{{ post.author.profile.profile_photo.url }}{% else %}https://api.adorable.io/avatars/16/{{ post.author }}.png{% endif %}"> 
+                            <a href="{{ post.author.profile.url }}">@{{ post.author }}</a>
+                        </span>
+                        <span><i class="fa fa-clock-o"></i> {{ post.created_at|naturaltime }}</span>
+                        <span class="like-wrapper">
+                            <a class="like-button" href="javascript:void(0);" data-action="{% if not is_liked %}like{% else %}unlike{% endif %}" data-item-id="{{ post.id }}" data-item-type="post">
+                                {% if not is_liked %}
+                                    <i class="fa fa-heart like"></i> Like
+                                {% else %}
+                                    <i class="fa fa-heart liked"></i> Liked
+                                {% endif %}
+                            </a>, <span id="postLikesCount{{ post.id }}">{{ post.get_likes.count|intcomma }}</span>
+                        </span>
+
+                        {% if post.author == user %}
+                        <div class="dropup pull-right">
+                            <span class="glyphicon glyphicon-option-horizontal options-icon dropdown-toggle" id="postActions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+                            <ul class="dropdown-menu" aria-labelledby="postActions">
+                                <li><a href="#" data-toggle="modal" data-target="#editPostModal">Edit</a></li>
+                                <li><a class="delete-button" href="javascript:void(0);" data-item-type="post" data-item-id="{{ post.id }}" data-redirect-url="{{ post.author.profile.url }}">Delete</a></li>
+                            </ul>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- #post -->
+
+                <!-- comments -->
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="pull-right" style="margin-top: 12px;">
+                            <a href="#" data-toggle="modal" data-target="#addComment{{ post.id }}">Add a comment</a>
+                        </div>
+
+                        <h4 id="commentsCount">Comments ({{ post.get_comments.count }})</h4>
+
+                        <!-- comments list -->
+                        <ul id="comments" class="media-list">
+                            {% if comments %}
+                                {% include 'social/partials/comments.html' %}
+                            {% endif %}
+                        </ul>
+
+                        {% if post.get_comments.count > 10 %}
+                        <p class="text-center">
+                            <a id="loadComments" class="btn btn-default btn-round" href="javascript:void(0);" data-page="2" data-post-id="{{ post.id }}">Load More</a>
+                            <i id="loadCommentsSpinner" class="fa fa-spinner fa-spin fa-2x" style="display: none;"></i>
+                        </p>
+                        {% endif %}
+                        <!-- #comments list -->
+                    </div>
+                </div>
+                <!-- #comments -->
+            </div>
+        </div>
+        <div class="col-md-2"></div>    
+    </div>
+
+    <!-- comment modal -->
+    <div class="modal fade" id="addComment{{ post.id }}" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- form -->
+                <form class="comment-form" method="post" action="" enctype="multipart/form-data" autocomplete="off" data-post-id="{{ post.id }}" data-page="post" data-comments-count="{{ post.get_comments.count }}">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Add a comment</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div id="contentErrors{{ post.id }}" class="text-danger"></div>
+
+                            <textarea class="form-control" type="text" rows="2" name="content" placeholder="Comment..." value=""></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button id="submitCommentBtn{{ post.id }}" class="btn btn-success" type="submit">Post <i id="submitCommentSpinner{{ post.id }}" class="fa fa-spinner fa-spin" style="display: none;"></i></button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+                <!-- #form -->
+            </div>
+        </div>
+    </div>
+    <!-- #comment modal -->
+
+    <!-- edit post modal -->
+    {% if post.author == user %}
+        {% include 'social/partials/edit-post.html' %}
+    {% endif %}
+    <!-- #edit post modal -->
+{% endblock %}

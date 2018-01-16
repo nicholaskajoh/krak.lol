@@ -1,0 +1,89 @@
+{% load humanize %}
+{% load krak %}
+
+{% for post in posts %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h4><a href="{{ post.url }}">{{ post.title }}</a></h4>
+
+        {% if post.featured_image %}
+            <a href="{{ MEDIA_URL }}{{ post.featured_image }}" data-lightbox="feed" data-title="{{ post.title }}">
+                <img class="card-img-top img-responsive b-lazy" src="{% static 'social/img/site/image-loading.gif' %}" data-src="{{ MEDIA_URL }}{{ post.featured_image }}">
+            </a><br>
+        {% endif %}
+
+        <p id="postExcerpt{{ post.id }}" class="post-content panel-text">{{ post.content|striptags|linebreaksbr|truncatechars:300 }}{% if post.content|num_chars > 300 %}<a class="read-more" data-excerpt="postExcerpt{{ post.id }}" data-full="fullPost{{ post.id }}" href="javascript:void(0);"><strong>read more</strong></a>{% endif %}</p>
+
+        {% if post.content|num_chars > 300 %}
+            <p id="fullPost{{ post.id }}" class="post-content linkify panel-text" style="display: none;">{{ post.content|striptags|linebreaksbr }}</p>
+        {% endif %}
+    </div>
+    <div class="panel-footer">
+        <!-- post details -->
+        <div class="details">
+            <span>
+                <img class="img-circle thumb-16" src="{% if post.author.profile.profile_photo %}{{ post.author.profile.profile_photo.url }}{% else %}https://api.adorable.io/avatars/16/{{ post.author }}.png{% endif %}"> 
+                <a href="{{ post.author.profile.url }}">@{{ post.author }}</a>
+            </span>
+            <span><i class="fa fa-clock-o"></i> {{ post.created_at|naturaltime }}</span>
+            <span class="like-wrapper">
+                <a class="card-link like-button" href="javascript:void(0);" data-action="{% if not post|post_liked:user %}like{% else %}unlike{% endif %}" data-item-id="{{ post.id }}" data-item-type="post">
+                    {% if not post|post_liked:user %}
+                        <i class="fa fa-heart like"></i> Like
+                    {% else %}
+                        <i class="fa fa-heart liked"></i> Liked
+                    {% endif %}
+                </a>, <span id="postLikesCount{{ post.id }}">{{ post.get_likes.count|intcomma }}</span>
+            </span>
+            <span><i class="fa fa-comments"></i> <a href="#" data-toggle="modal" data-target="#addComment{{ post.id }}">Comment</a>, <span id="commentsCount{{ post.id }}">{{ post.get_comments.count|intcomma }}</span></span>
+        </div>
+        <!-- #post details -->
+
+        <!-- latest comment -->
+        <hr id="postCommentDivider{{ post.id }}" style="{% if post.get_comments.count < 1 %}display: none;{% endif %}">
+
+        {% if post.get_comments.count > 1 %}
+            <p style="font-style: italic;">
+                <a href="{{ post.url }}#comments">View all comments</a>
+            </p>
+        {% endif %}
+
+        <ul id="commentLatest{{ post.id }}" class="media-list">
+            {% if post.get_comments.count > 0 %}
+                {% get_latest_comment post user %}
+            {% endif %}
+        </ul>
+        <!-- #latest comment -->
+    </div>
+</div>
+
+<!-- comment modal -->
+<div class="modal fade" id="addComment{{ post.id }}" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- form -->
+            <form class="comment-form" method="post" action="" enctype="multipart/form-data" autocomplete="off" data-post-id="{{ post.id }}" data-page="other" data-comments-count="{{ post.get_comments.count }}">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add a comment</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div id="contentErrors{{ post.id }}" class="text-danger"></div>
+
+                        <textarea class="form-control" type="text" rows="2" name="content" placeholder="Comment..." value=""></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="submitCommentBtn{{ post.id }}" class="btn btn-success" type="submit">Post <i id="submitCommentSpinner{{ post.id }}" class="fa fa-spinner fa-spin" style="display: none;"></i></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+            <!-- #form -->
+        </div>
+    </div>
+</div>
+<!-- #comment modal -->
+{% endfor %}

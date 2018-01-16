@@ -1,0 +1,13 @@
+{% extends "social/base.html" %}
+
+{% block content %}
+	<div class="container">
+		<h4>Email Verification</h4>
+		
+		{% if verified %}
+			<p>Your account has been verified! <a href="/auth/?pif=sign_in">Click here to Sign In</a>.</p>
+		{% else %}
+			<p>An error occured when we tried to verify your account. Please try again or contact us if the issue persists.</p>
+		{% endif %}
+	</div>
+{% endblock %}

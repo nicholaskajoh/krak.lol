@@ -1,0 +1,32 @@
+/* general css */
+
+.message {
+	background-color: #f5f5f5;
+	margin: -15px 0 20px 0;
+	padding: 15px 0;
+}
+
+.message-info {
+	color: #9c27b0;
+}
+
+.message-success {
+	color: #4caf50;
+}
+
+.message-error {
+	color: #e51c23;
+}
+
+a:hover, a:focus {
+	text-decoration: none;
+}
+
+footer {
+	padding: 0 5%; 
+	margin: 30px 0;
+}
+
+footer a {
+	padding-left: 10px;
+}

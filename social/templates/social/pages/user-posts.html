@@ -1,0 +1,29 @@
+{% extends "social/base.html" %}
+
+{% load humanize %}
+
+{% block content %}
+	<div class="container" style="margin-top: -10px;">
+		<div class="col-md-2"></div>
+		<div class="col-md-8 page">
+			<div class="row">
+				<h3>
+					<a href="{{ krak_user.profile.url }}">@{{ krak_user.username|intcomma }}</a> 
+					<small>posts ({{ posts_count }})</small>
+				</h3><hr style="margin-top: 0;">
+
+				<div id="posts">
+					{% include 'social/partials/posts.html' %}
+				</div>
+
+				{% if posts_count > 10 %}
+				<p class="text-center">
+					<a class="btn btn-default btn-round load-user-lists" href="javascript:void(0);" data-page="2" data-user-list="posts" data-user-id="{{ krak_user.id }}">Load More</a>
+					<i id="postsSpinner" class="fa fa-spinner fa-spin fa-2x" style="display: none;"></i>
+				</p>
+				{% endif %}
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+{% endblock %}

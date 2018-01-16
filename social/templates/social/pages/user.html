@@ -1,0 +1,77 @@
+{% extends "social/base.html" %}
+
+{% load humanize %}
+
+{% block content %}
+	<div class="container">
+		<div class="col-md-2"></div>
+		<div class="col-md-8 page">
+			<!-- user profile -->
+			<div class="row">
+				<div style="float: right; margin-top: 10px;">
+					<div class="profile-photo">
+						{% if krak_user.profile.profile_photo %}
+							<a href="{{ MEDIA_URL }}{{ krak_user.profile.profile_photo }}" data-lightbox="profile-photo" data-title="{{ krak_user.profile.full_name }}">
+								<img class="img-responsive" src="{{ MEDIA_URL }}{{ krak_user.profile.profile_photo }}">
+							</a>
+						{% else %}
+							<img class="img-responsive" src="https://api.adorable.io/avatars/128/{{ krak_user.username }}.png">
+						{% endif %}
+					</div>
+				</div>
+				<div class="">
+					<div class="profile-details">
+						<h2>{{ krak_user.profile.full_name }}</h2>
+
+						<h4 class="text-muted">@{{ krak_user.username }}</h4>
+
+	                    {% if krak_user.profile.bio %}
+	                        <div><i class="fa fa-info-circle"></i> {{krak_user.profile.bio}} </div>
+	                    {% endif %}
+
+	                    {% if krak_user.profile.link %}
+	                        <div><i class="fa fa-external-link"></i> <a href="{{ krak_user.profile.link }}" target="_blank">{{ krak_user.profile.link }}</a></div>
+	                    {% endif %}
+
+	                    {% if krak_user != user %}
+	                    <div class="follow-wrapper" style="padding-top: 5px;">
+	                    	<button class="btn {% if not is_followed %}btn-primary{% else %}btn-success{% endif %} btn-round follow-button" data-krak-user-id="{{ krak_user.id }}" data-action="{% if not is_followed %}follow{% else %}unfollow{% endif %}">{% if not is_followed %}Follow{% else %}Unfollow{% endif %}</button>
+	                    </div>
+	                    {% else %}
+                    	<div style="padding-top: 5px;">
+                    		<a class="btn btn-default btn-sm btn-round-sm" href="#" data-toggle="modal" data-target="#editProfileModal">edit profile</a>
+                    	</div>
+	                    {% endif %}
+					</div>
+				</div>
+			</div><hr style="margin-bottom: 5px;">
+
+			<div class="row text-center profile-stats">
+				<a href="{{ krak_user.profile.url }}posts">posts <strong>{{ posts_count|intcomma }}</strong></a>
+				<a href="{{ krak_user.profile.url }}following">following <strong>{{ following_count|intcomma }}</strong></a>
+				<a href="{{ krak_user.profile.url }}followers">followers <strong>{{ followers_count|intcomma }}</strong></a>
+			</div>
+			<!-- #user profile -->
+
+			<div class="row">
+				<!-- posts -->
+				{% if posts %}
+					<h3>Latest</h3>
+
+					<ul id="posts" class="media-list">
+						{% include 'social/partials/posts.html' %}
+					</ul>
+				{% else %}
+					<br>
+					<p class="text-center">No posts yet! {% if krak_user == user %}<a href="#" data-toggle="modal" data-target="#newPostModal">Make a new post.</a>{% endif %}</p>
+				{% endif %}
+				<!-- #posts -->
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+
+	{% if krak_user == user %}
+		{% include 'social/partials/edit-profile.html' %}
+	{% endif %}
+{% endblock %}

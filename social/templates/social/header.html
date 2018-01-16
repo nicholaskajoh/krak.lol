@@ -1,0 +1,57 @@
+<div class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header" style="padding-left: 1.5%;">
+			<a href="/" class="navbar-left">
+				<img src="{% static 'social/img/logo.png' %}?v=2" style="margin: 5px 0 0 0;">
+			</a>
+		</div>
+
+		<div class="navbar-collapse collapse" id="navbar-main">
+			<ul class="nav navbar-nav navbar-right" style="padding-right: 1.5%;">
+				{% if current_user.is_authenticated %}
+				<li><a href="#" title="New post" data-toggle="modal" data-target="#newPostModal"><i class="fa fa-plus-square nav-icon"></i></a></li>
+				<li><a href="#search" title="Search"><i class="fa fa-search nav-icon"></i></a></li>
+				<li>
+					<a href="/notifications" data-remote="false" data-toggle="modal" data-target="#notifsModal" title="Notifications">
+						{% if notifs > 0 %}
+							<i class="fa fa-bell-o nav-icon"></i> <span class="badge badge-danger badge-notify">{% if notifs > 9 %}9+{% else %}{{ notifs }}{% endif %}</span>
+						{% else %}<i class="fa fa-bell-o nav-icon"></i>{% endif %}
+					</a>
+				</li>
+				<li id="nav-profile" class="dropdown">
+					<a id="currentUser" href="#" class="dropdown-toggle" data-toggle="dropdown" title="@{{ current_user.username|truncatechars:15 }}">
+						<img class="img-circle thumb-32" src="{% if current_user.profile.profile_photo %}{{ current_user.profile.profile_photo.url }}{% else %}https://api.adorable.io/avatars/32/{{ current_user.username }}.png{% endif %}">
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="currentUser">
+						<li><a id="ddUsernameOption" href="javascript:void(0);"><strong>@{{ current_user.username|truncatechars:15 }}</strong></a></li>
+						<li class="divider"></li>
+						<li><a href="/home">Home</a></li>
+						<li><a href="/explore/popular">Popular posts</a></li>
+						<li><a href="/explore/people">Find people</a></li>
+						<li class="divider"></li>
+						<li><a href="#" data-toggle="modal" data-target="#newPostModal">New post</a></li>
+						<li><a href="{{ current_user.profile.url }}posts">My posts</a></li>
+						<li><a href="{{ current_user.profile.url }}liked">Liked posts</a></li>
+						<li class="divider"></li>
+						<li><a href="{{ current_user.profile.url }}">Profile</a></li>
+						<li><a href="/settings">Settings</a></li>
+						<li><a href="https://medium.com/krak" target="_blank">Help</a></li>
+						<li><a href="/logout">Logout</a></li>
+					</ul>
+				</li>
+				{% else %}
+				<li><a href="#" data-toggle="modal" data-target="#signUp">Sign Up</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#signIn">Sign In</a></li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="search">
+    <button type="button" class="close">×</button>
+    <form method="get" action="/search" autocomplete="off">
+        <input type="search" name="q" placeholder="Type something..." />
+        <button type="submit" class="btn btn-success">Search</button>
+    </form>
+</div>

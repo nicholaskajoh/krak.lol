@@ -1,0 +1,9 @@
+{% load humanize %}
+
+{% for notification in notifications %}
+<li class="media">
+	<div class="media-body">
+		<p>{{ notification.message|safe }} - {{ notification.created_at|naturaltime }}</p><hr>
+	</div>
+</li>
+{% endfor %}

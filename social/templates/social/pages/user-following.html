@@ -1,0 +1,31 @@
+{% extends "social/base.html" %}
+
+{% load humanize %}
+
+{% block content %} 
+    <div class="container">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 page">
+            <h3>
+				<a href="{{ krak_user.profile.url }}">@{{ krak_user.username|intcomma }}</a> 
+				<small>following ({{ following_count }})</small>
+			</h3><hr style="margin-top: 0;">
+
+			{% if following_count > 0 %}
+	            <ul id="following" class="media-list">
+	                {% include 'social/partials/users.html' %}
+	            </ul>
+	        {% else %}
+	        	<p class="text-center">Not following anyone yet! {% if krak_user == user %}<a href="/explore/people">Find people</a> on Krak.lol.{% endif %}</p>
+	        {% endif %}
+
+            {% if following_count > 10 %}
+            <p class="text-center">
+                <a class="btn btn-default btn-round load-user-lists" href="javascript:void(0);" data-page="2" data-user-list="following" data-user-id="{{ krak_user.id }}">Load More</a>
+                <i id="followingSpinner" class="fa fa-spinner fa-spin fa-2x" style="display: none;"></i>
+            </p>
+            {% endif %}
+        </div>
+        <div class="col-md-2"></div>
+    </div>  
+{% endblock %}

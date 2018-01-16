@@ -1,0 +1,41 @@
+{% extends "social/base.html" %}
+
+{% load humanize %}
+
+{% block content %}
+	<div class="container">
+		<div class="col-md-2"></div>
+		<div class="col-md-8 page">
+			{% if is_search %}
+			<h3>Search</h3>
+			<form method="get" action="">
+				<div class="form-group">
+					<input id="q" class="form-control" type="text" name="q" placeholder="Type in something and hit enter..." value="{{ q }}">
+				</div>
+			</form>
+			{% else %}
+			<h3>#{{ q }} <small>results <strong>{{ results_count }}</strong></small></h3>
+			{% endif %}
+
+			{% if results %}
+				{% if is_search %}
+					<h5 class="text-center">Results ({{ results_count }})</h5>
+				{% endif %}
+
+				<ul id="searchResults" class="media-list">
+					{% include 'social/partials/search-results.html' %}
+				</ul>
+
+				{% if results_count > 10 %}
+				<p class="text-center">
+					<a id="loadSearchResults" class="btn btn-default btn-round" href="javascript:void(0);" data-query="{{ request.GET.q }}" data-page="2">Load More</a>
+					<i id="loadSearchResultsSpinner" class="fa fa-spinner fa-spin fa-2x" style="display: none;"></i>
+				</p>
+				{% endif %}
+			{% elif q and results|length == 0 %}
+				<p class="text-center">Oops! No results found ;(</p>
+			{% endif %}
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+{% endblock %}

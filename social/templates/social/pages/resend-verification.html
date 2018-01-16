@@ -1,0 +1,41 @@
+{% extends "social/base.html" %}
+
+{% block content %}
+	<div class="container">
+		<div class="col-md-2"></div>
+		<div class="col-md-8 page">
+			<h4>Resend Verification</h4>
+		
+			{% if show_verification_form %}
+				<p>Just Signed Up? Relax! It may take a couple minutes before you receive the verification email. Waited long enough? We're really sorry. We can send you another email. Just enter your email address...</p>
+
+				<form method="post">
+					{% csrf_token %}
+
+					<div class="form-group">
+						<input id="email" class="form-control" type="email" name="email" placeholder="Email" value="">
+					</div>
+
+					<button class="btn btn-primary" type="submit">Send</button>
+				</form>
+			{% elif verification_sent %}
+				<p>We've just sent you the Verification email. Check your inbox for the email. There's a verification link in it.</p>
+			{% elif account_is_verified %}
+				<p>Your account has already been verified. Go head and Sign In...</p>
+
+				<div class="right" style="margin-top: 10px;">
+					<a class="btn btn-success" href="/auth/?pif=sign_in">Sign In</a> &nbsp;
+					<a class="btn btn-primary" href="/home">Home</a>
+				</div>
+			{% elif email_not_found %}
+				<p>We couldn't find any account with that email. It seems you haven't Signed Up yet. Do so to get a Krak Account...</p>
+
+				<div class="right" style="margin-top: 10px;">
+					<a class="btn btn-success" href="/auth/?pif=sign_up">Sign Up</a> &nbsp;
+					<a class="btn btn-primary" href="/home">Home</a>
+				</div>
+			{% endif %}
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+{% endblock %}

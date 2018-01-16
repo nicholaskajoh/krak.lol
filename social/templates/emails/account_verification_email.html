@@ -1,0 +1,51 @@
+{% extends "emails/base.html" %}
+
+{% block content %}
+<table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 600px;">
+
+    <!-- Hero Image, Flush : BEGIN -->
+    <tr>
+        <td bgcolor="#ffffff">
+            <img src="http://krak.lol/static/social/img/email/krak-email-verify-account.jpg" aria-hidden="true" width="600" height="" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;" class="g-img">
+        </td>
+    </tr>
+    <!-- Hero Image, Flush : END -->
+
+    <!-- 1 Column Text + Button : BEGIN -->
+    <tr>
+        <td bgcolor="#ffffff">
+            <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                    <td style="padding: 40px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                        <p>Hi @{{ user.username }}, thanks for joining the Krak.lol Community!</p>
+
+                        <blockquote style="font-style: italic; font-weight: bold;">Life is a drama full of tragedy and comedy. You should learn to enjoy the comic episodes a little more - Jeannette Walls</blockquote>
+
+                        <p>Krak.lol lets you share the funny stuff in your life and around you with family, friends and the world. Create collections of different experiences or thoughts you want to document and share them with anyone or everyone!</p>
+
+                        <p>Have a complaint or suggestion, or just want to make us laugh out loud? DM <strong>@krak_lol</strong> on Instagram. We'd be happy to hear from you!</p>
+
+                        <P>Click the button below to verify your account and start sharing on Krak.lol!</P>
+
+                        <div style="text-align: right;">- Krak.lol Team</div>
+                        <br><br>
+                        <!-- Button : BEGIN -->
+                        <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto;">
+                            <tr>
+                                <td style="border-radius: 3px; background: teal; text-align: center;" class="button-td">
+                                    <a href="http://krak.lol/verify/?uid={{ user.id }}" style="background: teal; border: 15px solid teal; font-family: sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
+                                        <span style="color:#ffffff;" class="button-link">&nbsp;&nbsp;&nbsp;&nbsp;Verify Account&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- Button : END -->
+                    </td>
+                    </tr>
+            </table>
+        </td>
+    </tr>
+    <!-- 1 Column Text + Button : END -->
+
+</table>
+{% endblock %}

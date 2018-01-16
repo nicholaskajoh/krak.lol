@@ -1,0 +1,72 @@
+<div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- form -->
+            <form id="editProfileForm" method="post" action="" enctype="multipart/form-data" autocomplete="off">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="editProfileModalLabel">Edit Profile</h4>
+                </div>
+
+                <div class="modal-body">
+					<div id="editProfileOtherErrors" class="text-danger"></div>
+
+					{% csrf_token %}
+
+					<!-- full name -->
+					<div class="form-group">
+						<div id="editProfileFullNameErrors" class="text-danger"></div>
+
+						<input id="full_name" class="form-control" type="text" name="full_name" placeholder="Full Name" value="{% if edit_profile_form.full_name.value %}{{ edit_profile_form.full_name.value }}{% else %}{{ user.profile.full_name }}{% endif %}">
+					</div>
+					<!-- #full name -->
+
+					<!-- bio -->
+					<div class="form-group">
+						<div id="editProfileBioErrors" class="text-danger"></div>
+
+						<textarea id="bio" class="form-control" type="text" rows="2" name="bio" placeholder="Bio">{% if edit_profile_form.bio.value %}{{ edit_profile_form.bio.value }}{% else %}{{ user.profile.bio }}{% endif %}</textarea>
+					</div>
+					<!-- #bio -->
+
+					<!-- link -->
+					<div class="form-group">
+						<div id="editProfileLinkErrors" class="text-danger"></div>
+
+						<input id="link" class="form-control" type="text" name="link" placeholder="Link (Facebook, Twitter, website etc)" value="{% if edit_profile_form.link.value %}{{ edit_profile_form.link.value }}{% else %}{{ user.profile.link }}{% endif %}">
+					</div>
+					<!-- #link -->
+
+					<!-- profile photo -->
+					<div class="form-group">
+						{% if user.profile.profile_photo %}
+						<div style="padding-bottom: 5px;">
+							Currently: 
+							<img class="img-circle thumb-32" src="{{ user.profile.profile_photo.url }}"> 
+							<span>(<a id="clearImage" href="javascript:void(0);" data-item-id="{{ user.id }}" data-item-type="user">Clear</a>)</span>
+						</div>
+						{% endif %}
+
+						<div id="editProfileProfilePhotoErrors" class="text-danger"></div>
+
+						<input class="file" type="file" name="profile_photo" style="display: none;">
+						<div class="row file-input">
+							<div class="col-lg-11 col-md-10 col-sm-10 col-xs-10">
+								<input type="text" class="form-control" disabled placeholder="Featured Image">
+							</div>
+							<div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">
+								<a class="choose-file" href="javascript:void(0);"><i class="fa fa-paperclip"></i></a>
+							</div>
+						</div>
+					</div>
+					<!-- #profile photo -->
+				</div>
+                <div class="modal-footer">
+                    <button id="editProfileSubmitBtn" class="btn btn-success" type="submit" name="submit" value="edit_profile">Save <i id="editProfileSpinner" class="fa fa-spinner fa-spin" style="display: none;"></i></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+            <!-- #form -->
+        </div>
+    </div>
+</div>

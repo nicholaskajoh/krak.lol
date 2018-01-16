@@ -1,0 +1,26 @@
+{% extends "social/base.html" %}
+
+{% load humanize %}
+
+{% block content %}
+	<div class="container" style="margin-top: -10px;">
+		<div class="col-md-2"></div>
+		<div class="col-md-8 page">
+			<div class="row">
+				<h3>Popular</h3><hr style="margin-top: 0;">
+
+				<div id="popular">
+					{% include 'social/partials/posts.html' %}
+				</div>
+
+				{% if posts_count > 15 %}
+				<p class="text-center">
+					<a id="loadPopular" class="btn btn-default btn-round" href="javascript:void(0);" data-page="2">Load More</a>
+					<i id="popularSpinner" class="fa fa-spinner fa-spin fa-2x" style="display: none;"></i>
+				</p>
+				{% endif %}
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+{% endblock %}

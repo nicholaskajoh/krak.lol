@@ -1,0 +1,31 @@
+{% extends "social/base.html" %}
+
+{% load humanize %}
+
+{% block content %} 
+    <div class="container">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 page">
+            <h3>
+				<a href="{{ krak_user.profile.url }}">@{{ krak_user.username|intcomma }}</a> 
+				<small>followers ({{ followers_count }})</small>
+			</h3><hr style="margin-top: 0;">
+
+			{% if followers_count > 0 %}
+	            <ul id="followers" class="media-list">
+	                {% include 'social/partials/users.html' %}
+	            </ul>
+            {% else %}
+            	<p class="text-center">No followers yet! {% if krak_user == user %}Invite your friends to join Krak.lol.{% endif %}</p>
+            {% endif %}
+
+            {% if followers_count > 10 %}
+            <p class="text-center">
+                <a class="btn btn-default btn-round load-user-lists" href="javascript:void(0);" data-page="2" data-user-list="followers" data-user-id="{{ krak_user.id }}">Load More</a>
+                <i id="followersSpinner" class="fa fa-spinner fa-spin fa-2x" style="display: none;"></i>
+            </p>
+            {% endif %}
+        </div>
+        <div class="col-md-2"></div>
+    </div>  
+{% endblock %}

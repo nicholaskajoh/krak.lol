@@ -1,0 +1,8 @@
+{% for result in results %}
+<li class="media">
+	<div class="media-body">
+		<h5><a href="{{ result.meta.url }}">{{ result.title }}</a></h5>
+		<p>{{ result.description|striptags|truncatewords:50 }}</p><hr>
+	</div>
+</li>
+{% endfor %}

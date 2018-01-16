@@ -1,0 +1,72 @@
+<div class="modal fade" id="editPostModal" tabindex="-1" role="dialog" aria-labelledby="editPostModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- form -->
+            <form class="post-form" method="post" action="" enctype="multipart/form-data" autocomplete="off" data-form-type="editPost">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="editPostModalLabel">Let's make some changes...</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div id="editPostOtherErrors" class="text-danger"></div>
+
+                    {% csrf_token %}
+
+                    {% if post.featured_image %}
+                        <input type="hidden" name="has_featured_image" value="True">
+                    {% endif %}
+
+                    <input type="hidden" name="url" value="{{ post.url }}">
+
+                    <!-- post title -->
+                    <div class="form-group">
+                        <div id="editPostTitleErrors" class="text-danger"></div>
+
+                        <input id="title" class="form-control" type="text" name="title" placeholder="Title" value="{{ post.title }}">
+                    </div>
+                    <!-- #post title -->
+
+                    <!-- post content -->
+                    <div class="form-group">
+                        <div id="editPostContentErrors" class="text-danger"></div>
+
+                        <textarea id="postContentEdit" class="form-control" type="text" rows="4" name="content" placeholder="Content" value="">{{ post.content }}</textarea>
+                    </div>
+                    <!-- #post content -->
+
+                    <!-- post featured image -->
+                    <div class="form-group">
+                        <div id="editPostFeaturedImageErrors" class="text-danger"></div>
+
+                        {% if post.featured_image %}
+                        <div style="padding-bottom: 5px;">
+                            Currently: 
+                            <img class="img-rounded thumb-32" src="{{ post.featured_image.url }}"> 
+                            <span>(<a id="clearImage" href="javascript:void(0);" data-item-id="{{ post.id }}" data-item-type="post">Clear</a>)</span>
+                        </div>
+                        {% endif %}
+
+                        <div class="form-group">
+                            <input class="file" type="file" name="featured_image" style="display: none;">
+                            <div class="row file-input">
+                                <div class="col-lg-11 col-md-10 col-sm-10 col-xs-10">
+                                    <input type="text" class="form-control" disabled placeholder="Featured Image">
+                                </div>
+                                <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">
+                                    <a class="choose-file" href="javascript:void(0);"><i class="fa fa-paperclip"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- #post featured image -->
+                </div>
+                <div class="modal-footer">
+                    <button id="editPostButton" class="btn btn-success" type="submit">Save <i id="editPostSpinner" class="fa fa-spinner fa-spin" style="display: none;"></i></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+            <!-- #form -->
+        </div>
+    </div>
+</div>

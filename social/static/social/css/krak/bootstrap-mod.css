@@ -1,0 +1,267 @@
+/* modifications to bootstrap */
+
+/* select placeholder */
+select:invalid {
+    color: #bbb;
+}
+
+/* rounded buttons */
+.btn-round-lg{
+    border-radius: 25px;
+}
+
+.btn-round{
+    border-radius: 20px;
+}
+
+.btn-round-sm{
+    border-radius: 15px;
+}
+
+.btn-round-xs{
+    border-radius: 11px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.badge-primary {
+    background-color: #2196f3;
+}
+
+.badge-success {
+    background-color: #4caf50;
+}
+
+.badge-info {
+    background-color: #9c27b0;
+}
+
+.badge-danger {
+    background-color: #e51c23;
+}
+
+.badge-notify{
+    position: absolute;
+    top: -10px;
+    left: 20px;
+}
+
+/* file input */
+.file-input .choose-file {
+    position: relative;
+    top: 10px;
+    left: -20px;
+}
+
+.file-input .choose-file i {
+    font-size: 22px;
+}
+
+/* panel */
+.tab-content {
+    padding-top: 20px;
+}
+
+/* media */
+.media-details span {
+    padding-right: 10px;
+    font-size: 14px;
+}
+
+/* prevent long words (e.g urls)  from breaking out of card container */
+.panel-text {
+    /* These are technically the same, but use both */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+/* navbar mod */
+.navbar-nav>li>a {
+    margin: 16px 6px 0 6px;
+    padding: 4px 6px;
+    border: none;
+}
+
+.navbar-nav>li>a:hover, 
+.navbar-nav>li>a:focus {
+    border: none;
+}
+
+@media (min-width: 768px) {
+    .navbar .navbar-nav>li>a {
+        padding: 4px 6px;
+    }
+}
+
+.navbar-default .navbar-nav>.open>a, 
+.navbar-default .navbar-nav>.open>a:hover, 
+.navbar-default .navbar-nav>.open>a:focus {
+    border: none;
+    color: teal;
+}
+
+a, a:hover, a:focus {
+    color: teal;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: teal;
+}
+
+.navbar-default .navbar-nav>li>a:hover, 
+.navbar-default .navbar-nav>li>a:focus {
+    color: teal;
+}
+
+.dropdown-menu>li>a:hover, 
+.dropdown-menu>li>a:focus {
+    background-color: teal;
+}
+
+.navbar-nav>li>.dropdown-menu {
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+/* disable navbar collapse for smaller screens */
+@media only screen and (max-width: 768px) {
+    .navbar-header {
+        float: left;
+    }
+
+    .navbar-nav {
+        float: left;
+        /*margin: 15px 0 0 0;*/
+    }
+
+    .navbar-nav>li {
+        float: left;
+    }
+
+    .navbar .navbar-nav>li>a {
+        padding: 6px 10px;
+    }
+
+    .navbar-right {
+        float: right !important;
+        margin-right: -15px;
+    }
+
+    .navbar-collapse {
+        width: auto;
+        border-top: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .navbar-collapse.collapse {
+        display: block !important;
+        height: auto !important;
+        padding-bottom: 0;
+        overflow: visible !important;
+    }
+
+    .navbar-right .dropdown-menu {
+        left: auto;
+        right: 0;
+    }
+
+    .navbar-nav .open .dropdown-menu {
+        position: absolute;
+        float: left;
+        width: auto;
+        margin-top: 0;
+        background-color: #ffffff;
+        border: 1px solid rgba(0,0,0,0.15);
+        border-radius: 4px;
+        -webkit-box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+    }
+
+    .navbar-default .navbar-nav .open .dropdown-menu>li>a {
+        color: #333333;
+    }
+}
+
+/* search */
+#search {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+
+    -webkit-transform: translate(0px, -100%) scale(0, 0);
+    -moz-transform: translate(0px, -100%) scale(0, 0);
+    -o-transform: translate(0px, -100%) scale(0, 0);
+    -ms-transform: translate(0px, -100%) scale(0, 0);
+    transform: translate(0px, -100%) scale(0, 0);
+    
+    opacity: 0;
+    z-index: 1050;
+}
+
+#search.open {
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+    -o-transform: translate(0px, 0px) scale(1, 1);
+    -ms-transform: translate(0px, 0px) scale(1, 1);
+    transform: translate(0px, 0px) scale(1, 1); 
+    opacity: 1;
+}
+
+#search input[type="search"] {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    color: rgb(255, 255, 255);
+    background: rgba(0, 0, 0, 0);
+    font-size: 35px;
+    font-weight: 300;
+    text-align: center;
+    border: 0px;
+    margin: 0px auto;
+    margin-top: -51px;
+    padding-left: 30px;
+    padding-right: 30px;
+    outline: none;
+}
+
+#search .btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: 61px;
+    margin-left: -45px;
+}
+
+#search .close {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    color: #fff;
+    background-color: #428bca;
+    border-color: #357ebd;
+    opacity: 1;
+    padding: 10px 17px;
+    font-size: 27px;
+}
